@@ -1,5 +1,7 @@
 pipeline {
-	agent any
+	agent docker {
+            image 'node:lts-buster-slim'
+        }
 	environment {
 		IMAGE = "my-image"
 		DOCKER_REGISTRY = "josejuarez78"
