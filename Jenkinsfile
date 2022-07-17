@@ -1,9 +1,5 @@
 pipeline {
-	agent {
-        docker {
-            image 'node:lts-buster-slim'
-        }
-    }
+	agent any
 	environment {
 		IMAGE = "my-image"
 		DOCKER_REGISTRY = "josejuarez78"
@@ -11,6 +7,7 @@ pipeline {
 	}
     tools {
         nodejs '18.6.0'
+        docker 'myDocker'
     }
 	stages {
 		stage('checkout github') {
