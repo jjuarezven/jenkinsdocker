@@ -7,7 +7,7 @@ pipeline {
 	}
    tools {
         nodejs '18.6.0'
-        dockerTool 'myDocker'
+        dockerTool 'my-docker'
     }
 	stages {
 		stage('checkout github') {
