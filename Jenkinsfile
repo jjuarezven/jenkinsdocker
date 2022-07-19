@@ -1,20 +1,14 @@
 pipeline {
 	agent any
 	environment {
-		IMAGE = "my-image"
+		IMAGE = "jenkins-cicd-sample"
 		DOCKER_REGISTRY = "josejuarez78"
         DOCKER_HUB_LOGIN = credentials('docker-hub')
 	}
-	/*
-   tools {
-        nodejs '18.6.0'
-        dockerTool 'my-docker'
-    }
-	*/
 	stages {
 		stage('checkout github') {
 			steps {
-				echo 'Descargando codigo de SCM'
+				echo 'Downloading source code from repository'
 				sh 'rm -rf *'
 				checkout scm
 			}
@@ -27,14 +21,14 @@ pipeline {
 		}	
 		stage('Build docker') {
 			steps {
-				echo("Hago un build de docker imagen ${IMAGE}")
+				echo("Building docker image ${IMAGE}")
 				sh("docker build -t ${IMAGE} .")
 				sh("docker tag ${IMAGE} ${DOCKER_REGISTRY}/${IMAGE}")
 			}
 		}
         stage('docker deploy') {
 			steps {
-                echo("Hago Docker Login")
+                echo("Deploying image to docker hub")
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
 				sh("docker push ${DOCKER_REGISTRY}/${IMAGE}")
 			}
