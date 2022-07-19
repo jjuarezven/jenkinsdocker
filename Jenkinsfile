@@ -5,10 +5,12 @@ pipeline {
 		DOCKER_REGISTRY = "josejuarez78"
         DOCKER_HUB_LOGIN = credentials('docker-hub')
 	}
+	/*
    tools {
         nodejs '18.6.0'
         dockerTool 'my-docker'
     }
+	*/
 	stages {
 		stage('checkout github') {
 			steps {
